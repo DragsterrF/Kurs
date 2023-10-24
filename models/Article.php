@@ -144,7 +144,7 @@ class Article extends \yii\db\ActiveRecord
     {
         $query = Article::find();
         $count = $query->count();
-        $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>1]);
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>2]);
         $articles = $query->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();
