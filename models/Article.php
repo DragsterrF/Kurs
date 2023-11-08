@@ -18,7 +18,6 @@ use yii\rbac\Item;
  * @property string|null $image
  * @property int|null $viewed
  * @property int|null $user_id
- * @property int|null $status
  * @property int|null $category_id
  *
  * @property ArticleTag[] $articleTags
@@ -62,7 +61,6 @@ class Article extends \yii\db\ActiveRecord
             'image' => 'Image',
             'viewed' => 'Viewed',
             'user_id' => 'User ID',
-            'status' => 'Status',
             'category_id' => 'Category ID',
         ];
     }
