@@ -152,7 +152,7 @@ class Article extends \yii\db\ActiveRecord
         $data['articles'] = $articles ;
         $data['pagination'] = $pagination ;
 
-        return$data;
+        return $data;
     }
 
     public static function getPopular()

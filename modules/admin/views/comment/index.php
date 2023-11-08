@@ -1,13 +1,12 @@
 <?php
 
-use app\models\Category;
 use yii\helpers\Html;
+use yii\grid\GridView;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
 
-/** @var yii\web\View $this */
-/** @var app\models\CategorySearch $searchModel */
-/** @var yii\data\ActiveDataProvider $dataProvider */
+/* @var $this yii\web\View */
+/* @var $searchModel app\models\CategorySearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Comments';
 $this->params['breadcrumbs'][] = $this->title;
@@ -17,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php if (!empty($comments)): ?>
+    <?php if(!empty($comments)):?>
 
         <table class="table">
             <thead>
@@ -33,20 +32,20 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php foreach($comments as $comment): ?>
                 <tr>
                     <td><?= $comment->id ?></td>
-                    <td><?= $comment->user->name ?></td>
+                    <td><?= $comment->user ? $comment->user->name : 'Unknown User' ?></td>
                     <td><?= $comment->text ?></td>
                     <td>
-                        <?php if ($comment->isAllowed()):?>
-                            <a class="btn btn-success" href="<?= Url::toRoute(['comment/allow', 'id'=>$comment->id]);?>">Разрешить</a>
-                        <?php else:?>
-                            <a class="btn btn-warning" href="<?= Url::toRoute(['comment/disallow', 'id'=>$comment->id]);?>">Запретить</a>
-                        <?php endif?>
-                        <a class="btn btn-danger" href="<?= Url::toRoute(['comment/delete', 'id' => $comment->id]); ?>">Удалить</a>
+                        <?php if($comment->isAllowed()): ?>
+                            <a class="btn btn-warning" href="<?= Url::toRoute(['comment/disallow', 'id' => $comment->id]) ?>">Disallow</a>
+                        <?php else: ?>
+                            <a class="btn btn-success" href="<?= Url::toRoute(['comment/allow', 'id' => $comment->id]) ?>">Allow</a>
+                        <?php endif ?>
+                        <a class="btn btn-danger" href="<?= Url::toRoute(['comment/delete', 'id' => $comment->id]) ?>">Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
 
-    <?php endif; ?>
+    <?php endif;?>
 </div>

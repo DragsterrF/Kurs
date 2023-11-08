@@ -2,32 +2,38 @@
 
     <?php foreach($comments as $comment):?>
         <div class="bottom-comment"><!--bottom comment-->
-            <div class="comment-img">
-                <img class="img-circle" src="<?= $comment->user->image; ?>" alt="">
-            </div>
-
-            <div class="comment-text">
-                <a href="#" class="replay btn pull-right"> Replay</a>
-                <h5><?= $comment->user->name;?></h5>
-
-                <p class="comment-date">
-                    <?= $comment->getDate();?>
-                </p>
-
-
-                <p class="para"><?= $comment->text; ?></p>
-            </div>
+            <?php if ($comment->user !== null): ?>
+                <div class="comment-img">
+                    <img width="50" class="img-circle" src="<?= $comment->user->image; ?>" alt="">
+                </div>
+                <div class="comment-text">
+                    <h5><?= $comment->user->name;?></h5>
+                    <p class="comment-date">
+                        <?= $comment->getDate();?>
+                    </p>
+                    <p class="para"><?= $comment->text; ?></p>
+                </div>
+            <?php else: ?>
+                <div class="comment-text">
+                    <h5>Нет имени пользователя</h5>
+                    <p class="comment-date">
+                        <?= $comment->getDate();?>
+                    </p>
+                    <p class="para"><?= $comment->text; ?></p>
+                </div>
+            <?php endif; ?>
         </div>
     <?php endforeach;?>
 
 <?php endif;?>
-    <!-- end bottom comment-->
-<?php if (Yii::$app->user->isGuest):?>
+<!-- end bottom comment-->
+
+<?php if(!Yii::$app->user->isGuest):?>
     <div class="leave-comment"><!--leave comment-->
         <h4>Leave a reply</h4>
-        <?php if (Yii::$app->session->getFlash('comment')):?>
+        <?php if(Yii::$app->session->getFlash('comment')):?>
             <div class="alert alert-success" role="alert">
-                <?= Yii::$app->session->getFlash('comment');?>
+                <?= Yii::$app->session->getFlash('comment'); ?>
             </div>
         <?php endif;?>
         <?php $form = \yii\widgets\ActiveForm::begin([

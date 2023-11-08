@@ -52,11 +52,19 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                 <ul class="nav navbar-nav text-uppercase">
-                    <li><a data-toggle="dropdown" class="dropdown-toggle" href="/">Home</a>
-
+                    <li>
+                        <a  class="go-back-home" href="/">Home</a>
                     </li>
                 </ul>
+
                 <div class="i_con">
+                    <?php if (Yii::$app->user->identity !== null && Yii::$app->user->identity->isAdmin): ?>
+                        <ul class="nav navbar-nav text-uppercase">
+                            <li>
+                                <a class="go-back-home" href="\admin">Admin</a>
+                            </li>
+                        </ul>
+                    <?php endif; ?>
                     <ul class="nav navbar-nav text-uppercase">
                         <?php if(Yii::$app->user->isGuest):?>
                             <li><a href="<?= Url::toRoute(['auth/login'])?>">Login</a></li>
